@@ -1,0 +1,47 @@
+@import "color-schemas";
+
+body {
+  color: $dark_0;
+}
+.mainContainer {
+  background-color: $white;
+}
+button {
+  background-color: $dark_1;
+  color: $white;
+}
+.link {
+  &, &:visited {
+    color: $link_base_color;
+  }
+  &.active, &:focus {
+    color: $link_base_color_active;
+  }
+}
+input, textarea {
+  border-color: $dark_4;
+
+  &:focus {
+    border-color: $dark_1;
+  }
+  &:disabled {
+    border-color: $dark_4;
+    background-color: $dark_6;
+  }
+}
+.alert {
+  color: $error;
+}
+.shadow {
+  background-color: $shadow_color;
+}
+.modal {
+  background-color: $white;
+}
+footer {
+  background-color: $dark_6;
+  border-top: $dark_4;
+}
+*:focus-visible {
+  outline: $outline_color;
+}

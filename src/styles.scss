@@ -1,0 +1,123 @@
+@import "./assets/color-schemas/black_and_white_theme.scss";
+
+* {
+  font-family: Helvetica, sans-serif;
+}
+html {
+  font-size: 16px;
+  min-height: 100%;
+}
+body {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  position: absolute;
+}
+.mainContainer {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+
+  & > * {
+    display: flex;
+  }
+}
+.pageWrapper {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.withFooter {
+    padding-bottom: 4rem;
+  }
+}
+.centeredForm {
+  min-width: 30rem;
+  position: relative;
+  text-align: center;
+}
+.centeredForm.narrow {
+  min-width: 23rem;
+}
+.formControl {
+  margin: .75rem 1.5rem;
+  width: auto;
+  text-align: left;
+
+  label {
+    text-transform: capitalize;
+    display: block;
+    margin-bottom: .5rem;
+  }
+  input, textarea {
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+    padding: .875rem 1.25rem;
+    border-radius: .5rem;
+    border-width: 1px;
+    border-style: solid;
+    outline: none;
+  }
+
+  & + .formControl {
+    margin-bottom: .5rem;
+  }
+}
+button {
+  border-radius: .25rem;
+  font-size: .875rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: .75rem 1.25rem;
+}
+button.wide {
+  padding: .75rem 1.25rem;
+  min-width: 20rem;
+}
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+.link {
+  text-decoration: none;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+footer {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3rem;
+  width: 100%;
+  text-align: center;
+  line-height: 3rem;
+  text-transform: uppercase;
+  border-top-width: 1px;
+  border-top-style: solid;
+  font-size: .875rem;
+
+  .link {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+.alert {
+  font-size: .8rem;
+  margin: 0.2rem 0 0 0.2rem
+}
+[disabled] {
+  opacity: .25;
+  cursor: default;
+}
+*:focus-visible {
+  outline-offset: .125rem;
+  outline-style: auto;
+}
