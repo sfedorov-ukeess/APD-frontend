@@ -1,0 +1,13 @@
+<div class="reviewCard" (click)="clickHandler.emit(data.groupUuid)">
+    <h6 class="title">{{data.name}}</h6>
+    <div class="firstLine">
+        <div class="groupName toLeft">{{data.groupName}}</div>
+        <div class="toRight">{{data.deadline ? GSS.getFormattedDate(data.deadline) : ""}}</div>
+    </div>
+    <div class="secondLine">
+        <div class="users toLeft">{{data.userCount}}</div>
+        <div class="chart toRight">
+            <app-chart [counter]="data.filledCount / data.userCount || 0"></app-chart>
+        </div>
+    </div>
+</div>

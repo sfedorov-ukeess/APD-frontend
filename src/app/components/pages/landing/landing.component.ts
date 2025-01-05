@@ -6,9 +6,5 @@ import environment from "../../../../environments/environment";
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit{
-  ngOnInit() {
-    console.log(environment)
-  }
-
+export class LandingComponent {
 }

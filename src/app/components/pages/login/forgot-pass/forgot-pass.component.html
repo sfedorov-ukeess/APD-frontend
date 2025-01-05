@@ -1,1 +1,105 @@
-<p>forgot-pass works!</p>
+<div class="pageWrapper withFooter singlePage">
+  <form class="centeredForm narrow"
+        #form0="ngForm"
+        (ngSubmit)="onSubmit(form0)"
+        *ngIf="phase === 0"
+  >
+    <h5>Відновлення паролю</h5>
+    <p>Введіть свій номер телефону або email і ми відправимо Вам посилання для відновлення паролю.</p>
+    <div class="formControl">
+      <label for="login">Телефон або email*</label>
+      <input type="text"
+             id="login"
+             name="login"
+             [(ngModel)]="login"
+             #loginData="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+             autofocus
+      />
+      <div *ngIf="checkType() && (loginData.dirty || loginData.touched)" class="alert">
+        Введіть телефон або емейл.
+      </div>
+    </div>
+    <button type="submit" [disabled]="!type">Підтвердити</button>
+  </form>
+
+
+  <form
+    *ngIf="phase === 1"
+    class="centeredForm pinForm narrow"
+    #form1="ngForm"
+    (keyup)="onKeyup($event, form1)"
+  >
+    <h5>Відновлення паролю</h5>
+    <h4>Введіть PIN код</h4>
+    <div class="formControl">
+      <input
+        #input1="ngModel"
+        type="text"
+        maxlength="1"
+        minlength="1"
+        id="p1"
+        name="p1"
+        [(ngModel)]="p1"
+        placeholder="X"
+        autocomplete="off"
+        required
+      />
+      <input
+        #input2="ngModel"
+        type="text"
+        maxlength="1"
+        minlength="1"
+        id="p2"
+        name="p2"
+        [(ngModel)]="p2"
+        placeholder="X"
+        autocomplete="off"
+        required
+      />
+      <input
+        #input3="ngModel"
+        type="text"
+        maxlength="1"
+        minlength="1"
+        id="p3"
+        name="p3"
+        [(ngModel)]="p3"
+        placeholder="X"
+        autocomplete="off"
+        required
+      />
+      <input
+        #input4="ngModel"
+        type="text"
+        maxlength="1"
+        minlength="1"
+        id="p4"
+        name="p4"
+        [(ngModel)]="p4"
+        placeholder="X"
+        autocomplete="off"
+        required
+      />
+    </div>
+    <div class="alert" *ngIf="
+      form1.invalid &&
+      (input1.touched || input1.dirty) &&
+      (input2.touched || input2.dirty) &&
+      (input3.touched || input3.dirty) &&
+      (input4.touched || input4.dirty)
+">
+      Поля необхідно заповнити.
+    </div>
+  </form>
+
+
+</div>
+<footer>
+  <div>
+    <a class="link" routerLink="/">повернутись</a>
+  </div>
+</footer>
+

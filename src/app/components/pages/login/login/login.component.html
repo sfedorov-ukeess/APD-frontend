@@ -1,4 +1,5 @@
-<div class="pageWrapper withFooter">
+<app-pin *ngIf="showPinModal" #pin [onSubmit]="onPinSubmit.bind(this)"></app-pin>
+<div class="pageWrapper withFooter singlePage">
   <form class="centeredForm narrow"
         #form="ngForm"
         (ngSubmit)="onSubmit(form)"
@@ -19,7 +20,6 @@
       <div *ngIf="loginModel.invalid && (loginModel.dirty || loginModel.touched)" class="alert">
         Поле необхідно заповнити.
       </div>
-
     </div>
     <div class="formControl">
       <label for="pass">Пароль*</label>

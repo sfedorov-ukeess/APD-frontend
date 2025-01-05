@@ -1,0 +1,15 @@
+<div class="main">
+  <div class="header">
+    <h5>АПД</h5>
+    <div class="switch">
+      <span [ngClass]="this.isOwn ? 'active' : ''" (click)="clickSwitch(true)" >Власні</span>
+      <span [ngClass]="this.isOwn ? '' : 'active'" (click)="clickSwitch(false)">Інших</span>
+    </div>
+    <div class="search">
+      <input type="text" class="input-serch" />
+    </div>
+  </div>
+  <div class="list-block">
+    <app-apd-block></app-apd-block>
+  </div>
+</div>

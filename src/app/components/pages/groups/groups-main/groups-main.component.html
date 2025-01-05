@@ -1,0 +1,41 @@
+<div class="pageWrapper withPanel">
+  <div class="mainBlock">
+    <h5 class="pageTitle">Групи</h5>
+    <div class="contentWrapper">
+      <app-search-field [value]="search" (onSearch)="searchGroupHandler($event)"></app-search-field>
+      <button class="addBtn addGroup" (click)="addNewGroup()">Додати</button>
+      <ul class="cardList">
+        <li class="groupCard" *ngFor="let item of groupListF" (click)="handleGroupClick(item.uuid)">
+          <div>
+            <div class="groupCardTitle">{{item.name}}</div>
+            <div class="personCounter">{{item.userCount}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="sidePanel" [style]="isPanelOpened ? '' : 'width: 0;'">
+    <div class="closeBtn" (click)="isPanelOpened=false"></div>
+    <div [ngSwitch]="sidebarMode">
+
+      <ng-template ngSwitchCase="reviewList">
+        <div class="sidebarContent">
+          <h5 class="title">{{selectedGroup.name}}</h5>
+          <h6 class="subtitle">Учасників: {{selectedGroup.userCount}}</h6>
+          <div class="formControl">
+            <app-search-field (onSearch)="searchReviewHandler($event)"></app-search-field>
+          </div>
+          <div class="reviewCardList">
+            <div *ngFor="let item of reviewListF">
+              <app-review-card [data]="item" (clickHandler)="reviewCardClick($event)"></app-review-card>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template ngSwitchCase="addNewGroup">
+
+      </ng-template>
+    </div>
+  </div>
+</div>

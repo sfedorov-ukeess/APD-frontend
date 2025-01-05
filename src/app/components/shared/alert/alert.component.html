@@ -1,0 +1,9 @@
+<div class="shadow" *ngIf="isShown" (click)="this.onClickHandler()">
+  <div class="alert-body">
+    <h5 class={{type}}>{{ messageType }}</h5>
+    <button class="close-btn" (click)="this.onClickHandler()">x</button>
+    <div class="content">
+      {{text}}
+    </div>
+  </div>
+</div>
