@@ -63,43 +63,46 @@ export class APIService {
           options
         );
       }
-    };
+    }
+    ;
 
     return result
       .pipe(
-          tap((res): void => {
-              this.GSS.showSpinnerEvent.emit(false);
-          }),
-      catchError((error) => {
-          if (error.status === 0) {
-            this.GSS.showAlertEvent.emit({
-              type: "error",
-              text: error.message
-            });
-          } else {
-            let text: string;
-            switch (error.status) {
-              case 401: {
-                text = "Неавторизований користувач.";
-                if (!this.GSS.get("token")) {
-                  this.router.navigate(["/"]);
-                };
-                break;
+        tap((res): void => {
+          this.GSS.showSpinnerEvent.emit(false);
+        }),
+        catchError((error) => {
+            this.GSS.showSpinnerEvent.emit(false);
+            if (error.status === 0) {
+              this.GSS.showAlertEvent.emit({
+                type: "error",
+                text: error.message
+              });
+            } else {
+              let text: string;
+              switch (error.status) {
+                case 401: {
+                  text = "Неавторизований користувач.";
+                  if (!this.GSS.get("token")) {
+                    this.router.navigate(["/"]);
+                  }
+                  ;
+                  break;
+                }
+
+                default:
+                  text = `Backend returned error: ${error.message} with code ${error.status}`;
               }
 
-              default:
-                text = `Backend returned error: ${error.message} with code ${error.status}`;
+              this.GSS.showAlertEvent.emit({
+                type: "error",
+                text
+              });
             }
-
-            this.GSS.showAlertEvent.emit({
-              type: "error",
-              text
-            });
+            return throwError(() => new Error('Щось пішло не так. Спробуйте пізніше.'));
           }
-          return throwError(() => new Error('Щось пішло не так. Спробуйте пізніше.'));
-        }
-      )
-    );
+        )
+      );
   }
 
   getTokenByCredentials(userIdentity: string, password: string): Observable<object> {
@@ -114,13 +117,12 @@ export class APIService {
     );
   }
 
-  getConfirmationId(): Observable<any> {
-    const { email, shortPhone } = this.GSS.get(ParamNames.userData);
+  requestConfirmation(): Observable<any> {
+    const { shortPhone } = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/request-confirmation",
       {
-        email,
         phone: shortPhone
       },
       this.options
@@ -128,13 +130,12 @@ export class APIService {
   }
 
   getValidationEmail(): Observable<any> {
-    const { email, confirmationId } = this.GSS.get(ParamNames.userData);
+    const { email } = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/send-confirmation-email",
       {
-        email,
-        confirmationId
+        email
       },
       this.options
     );
@@ -155,14 +156,13 @@ export class APIService {
   }
 
   validateEmailCode(code: string): Observable<any> {
-    const { email, confirmationId } = this.GSS.get(ParamNames.userData);
+    const { email } = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/confirm-email",
       {
         email,
-        code,
-        confirmationId
+        code
       },
       this.options
     );

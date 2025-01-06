@@ -47,7 +47,7 @@ export class DataVerifyComponent implements OnInit {
 
   requestPhoneCode() {
     this.GSS.set(ParamNames.userData, {confirmationId: ""});
-    this.API.getConfirmationId()
+    this.API.requestConfirmation()
       .subscribe((confirmationId: object) => {
         this.GSS.set(ParamNames.userData, confirmationId);
       });
