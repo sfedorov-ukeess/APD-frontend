@@ -23,9 +23,10 @@ export class APIService {
     private http: HttpClient,
     private GSS: GlobalSignalService,
     private router: Router
-  ) {}
+  ) {
+  }
 
-  getShortPhone (phone: string): string {
+  getShortPhone(phone: string): string {
     return this.getShortPhone(phone);
   }
 
@@ -38,7 +39,8 @@ export class APIService {
       }
     };
   }
-  useHttp(method: string, url: string, body = {}, options: Object = {}): Observable<object> {
+
+  useHttp(method: string, url: string, body = {}, options: Object = {}): Observable<any> {
     let result;
     this.GSS.showSpinnerEvent.emit(true);
     switch (method) {
@@ -118,7 +120,7 @@ export class APIService {
   }
 
   requestConfirmation(): Observable<any> {
-    const { shortPhone } = this.GSS.get(ParamNames.userData);
+    const {shortPhone} = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/request-confirmation",
@@ -130,7 +132,7 @@ export class APIService {
   }
 
   getValidationEmail(): Observable<any> {
-    const { email } = this.GSS.get(ParamNames.userData);
+    const {email} = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/send-confirmation-email",
@@ -142,7 +144,7 @@ export class APIService {
   }
 
   validatePhoneCode(): Observable<any> {
-    const { code, shortPhone, confirmationId } = this.GSS.get(ParamNames.userData);
+    const {code, shortPhone, confirmationId} = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/validate-confirmation",
@@ -156,7 +158,7 @@ export class APIService {
   }
 
   validateEmailCode(code: string): Observable<any> {
-    const { email } = this.GSS.get(ParamNames.userData);
+    const {email} = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/confirm-email",
@@ -200,7 +202,7 @@ export class APIService {
   }
 
   validateInvite(): Observable<any> {
-    const { inviteCode, email } = this.GSS.get(ParamNames.userData);
+    const {inviteCode, email} = this.GSS.get(ParamNames.userData);
     return this.useHttp(
       "POST",
       "register/validate-invite",
@@ -268,13 +270,13 @@ export class APIService {
   getUserList(groupUuid: string = ""): Observable<any> {
     return this.useHttp(
       "GET",
-        "user/list" + (groupUuid ? "?groupUuid=" + groupUuid : ""),
+      "user/list" + (groupUuid ? "?groupUuid=" + groupUuid : ""),
       undefined,
       this.getAuthorizedOptions()
     );
   }
 
-  getGrouplist( commonWith: string | null = null, onlyMy: boolean = false, includePeople: boolean = false , isArchived: boolean = false): Observable<any> {
+  getGrouplist(commonWith: string | null = null, onlyMy: boolean = false, includePeople: boolean = false, isArchived: boolean = false): Observable<any> {
     return this.useHttp(
       "GET",
       `group/list?onlyMy=${onlyMy}& commonWith=${commonWith}?includePeople=${includePeople.toString()}?isArchived=${isArchived}`,
@@ -283,13 +285,13 @@ export class APIService {
     );
   }
 
-  getReviewlist(groupUuid: string | null = null , isArchived: boolean = false): Observable<any> {
-      return this.useHttp(
-          "GET",
-          `/api/review/list?groupUuid=${groupUuid}?isArchived=${isArchived}`,
-          {},
-          this.getAuthorizedOptions()
-      );
+  getReviewlist(groupUuid: string | null = null, isArchived: boolean = false): Observable<any> {
+    return this.useHttp(
+      "GET",
+      `/api/review/list?groupUuid=${groupUuid}?isArchived=${isArchived}`,
+      {},
+      this.getAuthorizedOptions()
+    );
   }
 
   removePerson(userUuid: string): Observable<any> {
@@ -315,4 +317,32 @@ export class APIService {
     )
   }
 
+  getInvitelist(): Observable<any> {
+    return this.useHttp(
+      "GET",
+      `/invite/list`,
+      {},
+      this.getAuthorizedOptions()
+    );
+  }
+
+  postCreateRebiew(obj: any): Observable<any> {
+    return this.useHttp(
+      "POST",
+      "review/create",
+      {...obj
+      },
+      this.getAuthorizedOptions()
+    );
+  }
+
+
+  getSitTypes(): Observable<{ list: Array<object>}> {
+    return this.useHttp(
+      "GET",
+      "situation/list",
+      {},
+      this.getAuthorizedOptions()
+    );
+  }
 }

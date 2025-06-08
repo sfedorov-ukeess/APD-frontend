@@ -105,6 +105,8 @@ body {
   min-width: 30rem;
   position: relative;
   text-align: center;
+  padding: 1.5rem;
+  min-height: fit-content;
 
   &.narrow {
     margin: auto;
@@ -129,7 +131,7 @@ body {
   }
 }
 
-input, textarea {
+input, textarea, select {
   display: block;
   box-sizing: border-box;
   margin: 0;
@@ -141,6 +143,9 @@ input, textarea {
   outline: none;
   font-size: 1rem;
   caret-color: initial;
+}
+textarea {
+  min-height: 5rem
 }
 
 button {
@@ -182,10 +187,6 @@ footer {
   border-top-width: 1px;
   border-top-style: solid;
   font-size: .875rem;
-
-  &.lineSeparated {
-
-  }
 
   .link {
     text-transform: uppercase;
@@ -354,6 +355,8 @@ app-chart {
   left: 0;
   width: 100%;
   padding-top: 1rem;
+  max-height:100%;
+  overflow: scroll;
 
   .title {
     text-align: center;

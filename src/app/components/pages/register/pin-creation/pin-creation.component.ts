@@ -24,10 +24,10 @@ export class PinCreationComponent implements OnInit {
   }
 
   ngOnInit() {
-    const {confirmationId, inviteCode} = this.GSS.get(ParamNames.userData);
-   /* if (!(confirmationId || inviteCode)) {
+    const { confirmationId, inviteCode } = this.GSS.get(ParamNames.userData);
+    if (!(confirmationId || inviteCode)) {
      this.router.navigate(["/"]);
-    }*/
+    }
   }
 
   onSubmit(form: any) {
@@ -55,7 +55,7 @@ export class PinCreationComponent implements OnInit {
     this.GSS.set(ParamNames.userData, {
       token: result.token
     });
-    this.router.navigate(["main"]);
+    this.router.navigate(["people"]);
   }
 
   onInput(evt: any) {

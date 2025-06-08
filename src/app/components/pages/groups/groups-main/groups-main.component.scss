@@ -20,3 +20,15 @@
 app-review-card {
   cursor: pointer;
 }
+
+.addReview {
+  top: 1rem;
+}
+
+.addReviewData {
+  text-align: center;
+  button {
+    position: relative;
+    margin-left: 2rem;
+  }
+}
