@@ -72,7 +72,7 @@ export class GroupsMainComponent implements OnInit{
     this.sidebarMode = "reviewList";
     this.isPanelOpened = true;
     this.selectedGroup = this.groupList.find(item => item.uuid === uuid);
-    this.API.getReviewlist(uuid),duvscribe(res => {console.log(2222,res)
+    this.API.getReviewlist(uuid).subscribe(res => {console.log(2222,res)
     this.reviewList = this.reviewListF = res.reviews;
     this.isPanelOpened = true;
     return;
@@ -104,14 +104,13 @@ export class GroupsMainComponent implements OnInit{
           "experienceAreaIds": [1, 3, 6],
           issue: this.issue
         }
-        this.API.postCreateRebiew(mewRebiew).suvscribe(res => {
+        this.API.postCreateRebiew(mewRebiew).subscribe(res => {
         this.reviewList.push({
-          {
             "deadline": this.APDDate,
             "groupName": this.selectedGroup.name,
-            "groupUuid": tis.selectedGroup.uuid,
-            "issue": this.issue
-            "name": this.APDname",
+            "groupUuid": this.selectedGroup.uuid,
+            "issue": this.issue,
+            "name": this.APDname,
             "uuid": this.selectedGroup.uuid,
             "filledCount": 0,
             "filledByMe": false,

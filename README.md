@@ -14,6 +14,19 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+To build with docker:
+```bash
+docker run --rm -u $(id -u) \
+	--entrypoint sh \
+	-v "$PWD":/app \
+	trion/ng-cli:15.2.10 \
+	-c 'npm ci; ng build'
+```
+Then push it to CloudFront:
+```bash
+aws s3 sync dist/apd s3://apdinfo-frontend --delete
+```
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
