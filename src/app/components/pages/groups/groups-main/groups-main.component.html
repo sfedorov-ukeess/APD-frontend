@@ -133,10 +133,24 @@
                          #sitTypeModel="ngModel"
                          required
                   >
-                  <option *ngFor="let type of sitTypes;" value=type.id>{{type.name}}
+                  <option *ngFor="let type of sitTypesList;" value=type.id>{{type.name}}
                   </option>
                   </select>
                 </div>
+          <div class="formControl">
+            <label for="name">Тип АПД                                                        *</label>
+            <select
+              id="experienceAreaId"
+              name="experienceAreaId"
+              [(ngModel)]="experienceAreaId"
+              #experienceAreaIdModel="ngModel"
+              multiple="true"
+              required
+            >
+              <option *ngFor="let type of experienceAreaIds" value=type.id>{{type.name}}
+              </option>
+            </select>
+          </div>
                   <div class="formControl">
                     <label for="name">Модератор                                                        *</label>
                     <input type="text"
