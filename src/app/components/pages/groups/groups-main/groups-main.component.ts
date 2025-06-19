@@ -17,8 +17,10 @@ export class GroupsMainComponent implements OnInit{
   protected reviewList: Array<any> = [];
   protected reviewListF: Array<any> = [];
   protected invitedList: Array<any> = [];
+  protected participants: Array<any> = [];
+  protected selectedParticipants: Record<string, boolean> = {};
   protected APDname: string = "";
-  protected APDDate: any;
+  protected APDDate: Date = new Date();
   protected unitCat: string = ""
   protected DivType: string = "";
   protected sitType: number = -1;
@@ -27,7 +29,8 @@ export class GroupsMainComponent implements OnInit{
   protected issue: string = "";
   protected experienceAreaId: number = 0;
   protected experienceAreaIds: any=[];
-
+  protected newGroupNameModel: string = "";
+  protected validationMsg :string = "";
 
   constructor(
     private API: APIService
@@ -35,7 +38,7 @@ export class GroupsMainComponent implements OnInit{
 
   ngOnInit() {
     //TODO remove mock
-    this.API.getGrouplist().subscribe(res =>{console.log(1111,res)
+    this.API.getGrouplist().subscribe(res =>{
       this.groupListF = this.groupList = {
       "groups":[
           {
@@ -61,18 +64,36 @@ export class GroupsMainComponent implements OnInit{
               }]
           }]}["groups"];
       this.sidebarMode = "addNewGroup";
-      this.isPanelOpened = true;
+      //this.isPanelOpened = true;
 
     });
   }
 
   addNewGroup() {
-    this.API.getInvitelist().subscribe(
+    this.API.getUserList().subscribe(
       res => {
-        this.invitedList =  res.invites;
+        this.participants=res.people;
         this.sidebarMode = "addNewGroup";
         this.isPanelOpened = true;
       });
+  }
+
+  postNewGroup() {
+    this.isValid(null);
+    if (!this.validationMsg.trim()) {
+       const selecteduuid = Object.keys(this.selectedParticipants);
+      const users = [];
+      for (const item in selecteduuid) {
+        const user = this.participants.find(participant => participant.uuid === selecteduuid[item])
+        users.push({
+          name: user.name,
+          phone: user.phone
+        })
+      }
+      this.API.createNewGroup({name: this.newGroupNameModel, users}).subscribe(()=>{
+        this.addNewGroup();
+      })
+    }
   }
 
   searchGroupHandler(value: string) {
@@ -96,8 +117,7 @@ export class GroupsMainComponent implements OnInit{
     this.sidebarMode = "reviewList";
     this.isPanelOpened = true;
     this.selectedGroup = this.groupList.find(item => item.uuid === uuid);
-    this.API.getReviewlist(uuid).subscribe(res => {console.log(2222,res)
-      this.reviewList = this.reviewListF = res.reviews;
+    this.API.getReviewlist(uuid).subscribe(res => {      this.reviewList = this.reviewListF = res.reviews;
       this.API.getAreaList().subscribe(res)
       this.isPanelOpened = true;
 
@@ -112,7 +132,7 @@ export class GroupsMainComponent implements OnInit{
       this.sidebarMode = "addReview";
       this.isPanelOpened = true;
       this.API.getAreaList().subscribe(res =>{
-        this.experienceAreaIds = res;console.log(777,  this.experienceAreaIds)
+        this.experienceAreaIds = res;
       })
     });
   }
@@ -122,8 +142,9 @@ export class GroupsMainComponent implements OnInit{
   }
 
   addReviewData() {
-    const newRebiew= {
-      "deadline": this.APDDate,
+       const newReview= {
+      "bunchUuid":this.selectedGroup.uuid,
+      "deadline": (new Date(this.APDDate)).getTime(),
       "groupName": this.selectedGroup.name,
       "groupUuid": this.selectedGroup.uuid,
       "issue": this.issue,
@@ -133,27 +154,39 @@ export class GroupsMainComponent implements OnInit{
       "filledByMe": false,
       "userCount": 3,
       "owner": true,
+      "unitType": this.DivType,
       "sitType": this.sitType,
-      "experienceAreaIds": this.experienceAreaIds
-  }
-        this.API.postCreateRebiew(newRebiew).subscribe(res => {
+      "experienceAreaIds": this.experienceAreaIds  };console.log(newReview);
+        this.API.postCreateReview(newReview).subscribe(res => {
         this.reviewList.push(
-          {...newRebiew
+          {...newReview
           });
         })
   }
 
-  selectPeople() {
-
+  selectPeople(uuid: string) {
+   this. selectedParticipants[uuid as string] = (!this. selectedParticipants[uuid as string]) || false;
+   this.isValid(null);
   }
 
   isValid (model: any) {
-    return model? model.invalid && (model.dirty || model.touched): false;
+    if (model) {
+      return model ? model.invalid && (model.dirty || model.touched) : false;
+    }
+    if(!this.newGroupNameModel|| this.newGroupNameModel.trim()===""){
+      this.validationMsg = "Заповніть ім'я групи"
+    } else {
+      if (Object.keys(this.selectedParticipants).length === 0) {
+        this.validationMsg = "Оберіть хоча б одного учасника"
+      } else{
+        this.validationMsg = "";
+      }
+    }
   }
 
-  onSubmitAddRebiew(form: any) {
+  onSubmitAddReview(form: any) {
     if(form?.valid) {
-      this.API.postCreateRebiew(
+      this.API.postCreateReview(
         {"bunchUuid": "dc6db24e-0db1-47b5-a69f-17b1009427d5",
           "name": "АПД-2",
           "deadline": "1675955811000",

@@ -1,4 +1,5 @@
 .reviewCard {
+  position: relative;
   margin-bottom: .75rem;
   border-radius: .5rem;
   padding: 1rem;
@@ -39,5 +40,13 @@
     .chart {
       width: 60%;
     }
+  }
+  &.checked:after {
+    position: absolute;
+    left: 30%;
+    content: "✔";
+    top: 40%;
+    font-weight: bold;
+    font-size: 1.3rem;
   }
 }

@@ -36,18 +36,31 @@
 
       <ng-template ngSwitchCase="addNewGroup">
         <div class="sidebarContent">
-          <h5 class="title">{{selectedGroup.name}}</h5>
-          <button class="addBtn addReview" >Далі</button>
+          <h5 class="title">Обрати учасників нової групи</h5>
+          <button class="addBtn addReview" (click)="postNewGroup()">Далі</button>
           <h6 class="subtitle">Нове АПД</h6>
           <div class="formControl addReviewData">
-            <button class="addBtn">Додати інших учасників</button>
+            <input type="text"
+                   id="newGroupName"
+                   name="newGroupName"
+                   [(ngModel)]="newGroupNameModel"
+                   #nameModel="ngModel"
+                   placeholder="Введіть"
+                   autocomplete="off"
+                   (change)="isValid(null)"
+                   required
+                   autofocus
+            />
+            <div *ngIf="validationMsg" class="alert">
+              {{validationMsg}}
+            </div>
           </div>
           <div class="underline"></div>
           <div class="reviewCardList">
-            <div *ngFor="let item of selectedGroup.people">
-              <app-review-card [data]="item" (clickHandler)="selectPeople()"></app-review-card>
+            <div *ngFor="let item of participants">
+              <app-review-card [data]="item" (clickHandler)="selectPeople(item.uuid)" [isChecked]="selectedParticipants[item.uuid]"></app-review-card>
             </div>
-          </div>
+          </div>k
         </div>
       </ng-template>
 
@@ -55,7 +68,7 @@
         <div class="sidebarContent">
         <form class="centeredForm narrow"
               #form="ngForm"
-              (ngSubmit)="onSubmitAddRebiew(form)"
+              (ngSubmit)="onSubmitAddReview(form)"
         >
 
           <h5 class="title">{{selectedGroup.name}}</h5>
@@ -82,7 +95,7 @@
             </div>
           </div>
             <div class="formControl">
-              <label for="name">Дата здаяі                                                          *</label>
+              <label for="name">Дата здачі                                                          *</label>
               <input type="datetime-local"
                      id="date"
                      name="date"

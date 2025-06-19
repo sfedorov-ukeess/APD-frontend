@@ -1,4 +1,4 @@
-<div class="reviewCard" (click)="clickHandler.emit(data.groupUuid)">
+<div class={{clsName}} (click)="clickHandler.emit(data.groupUuid|| data.uuid)">
     <h6 class="title">{{data.name}}</h6>
     <div class="firstLine">
         <div class="groupName toLeft">{{data.groupName}}</div>

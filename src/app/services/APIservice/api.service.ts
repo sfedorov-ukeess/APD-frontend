@@ -317,6 +317,17 @@ export class APIService {
     )
   }
 
+  createNewGroup(data: any): Observable <any> {
+      return this.useHttp(
+        "POST",
+        `group/create`,
+        data,
+        this.getAuthorizedOptions()
+      )
+    }
+
+
+
   getInvitelist(): Observable<any> {
     return this.useHttp(
       "GET",
@@ -326,7 +337,7 @@ export class APIService {
     );
   }
 
-  postCreateRebiew(obj: any): Observable<any> {
+  postCreateReview(obj: any): Observable<any> {
     return this.useHttp(
       "POST",
       "review/create",
