@@ -345,4 +345,12 @@ export class APIService {
       this.getAuthorizedOptions()
     );
   }
+  getAreaList(): Observable<{ list: Array<any>}> {
+    return this.useHttp(
+      "GET",
+      "experience-area/list",
+      {},
+      this.getAuthorizedOptions()
+    );
+  }
 }

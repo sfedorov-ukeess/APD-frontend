@@ -22,9 +22,11 @@ export class GroupsMainComponent implements OnInit{
   protected unitCat: string = ""
   protected DivType: string = "";
   protected sitType: number = -1;
-  protected sitTypes: Array<any> = [];
+  protected sitTypesList: Array<any> = [];
   protected moder: string = "";
   protected issue: string = "";
+  protected experienceAreaId: number = 0;
+  protected experienceAreaIds: any=[];
 
 
   constructor(
@@ -34,11 +36,33 @@ export class GroupsMainComponent implements OnInit{
   ngOnInit() {
     //TODO remove mock
     this.API.getGrouplist().subscribe(res =>{console.log(1111,res)
-      this.groupListF = this.groupList =
-        res["groups"];
+      this.groupListF = this.groupList = {
+      "groups":[
+          {
+            "modifiedOn": 1676897960000,
+            "name": "Нове імя групи",
+            "reviewCount": 1,
+            "userCount": 4,
+            "uuid": "1dce9579-ee8c-49ab-a6b4-8f1d1858b047",
+            "owner": false,
+            "invitedPeople": [
+              {
+                "phone": "012345678",
+                "name": "Андрій"
+              },
+              {
+                "phone": "012345679",
+                "name": "Віктор"
+              }
+            ],
+            "people": [
+              {
+                "uuid": "03a32ab0-0d96-4fd2-8cab-64247bb228f5"
+              }]
+          }]}["groups"];
       this.sidebarMode = "addNewGroup";
       this.isPanelOpened = true;
-      ;
+
     });
   }
 
@@ -73,18 +97,23 @@ export class GroupsMainComponent implements OnInit{
     this.isPanelOpened = true;
     this.selectedGroup = this.groupList.find(item => item.uuid === uuid);
     this.API.getReviewlist(uuid).subscribe(res => {console.log(2222,res)
-    this.reviewList = this.reviewListF = res.reviews;
-    this.isPanelOpened = true;
+      this.reviewList = this.reviewListF = res.reviews;
+      this.API.getAreaList().subscribe(res)
+      this.isPanelOpened = true;
+
     return;
     });
   }
 
   addNewReview() {
     this.API.getSitTypes().subscribe(res => {
-      this.sitTypes = res.list;
-      this.sitType= this.sitTypes[0]["id"];
+      this.sitTypesList = res.list;
+      this.sitType= this.sitTypesList[0]["id"];
       this.sidebarMode = "addReview";
       this.isPanelOpened = true;
+      this.API.getAreaList().subscribe(res =>{
+        this.experienceAreaIds = res;console.log(777,  this.experienceAreaIds)
+      })
     });
   }
 
@@ -93,30 +122,24 @@ export class GroupsMainComponent implements OnInit{
   }
 
   addReviewData() {
-        const mewRebiew = {
-          "bunchUuid": this.selectedGroup.uuid,
-          "name": this.APDname,
-          "deadline": this.APDDate,
-          "moderator": this.moder,
-          "situationId": this.sitType,
-          "unitType": "підрозділ 1",
-          "userCategories": this.DivType,
-          "experienceAreaIds": [1, 3, 6],
-          issue: this.issue
-        }
-        this.API.postCreateRebiew(mewRebiew).subscribe(res => {
-        this.reviewList.push({
-            "deadline": this.APDDate,
-            "groupName": this.selectedGroup.name,
-            "groupUuid": this.selectedGroup.uuid,
-            "issue": this.issue,
-            "name": this.APDname,
-            "uuid": this.selectedGroup.uuid,
-            "filledCount": 0,
-            "filledByMe": false,
-            "userCount": 3,
-            "owner": true
-          })
+    const newRebiew= {
+      "deadline": this.APDDate,
+      "groupName": this.selectedGroup.name,
+      "groupUuid": this.selectedGroup.uuid,
+      "issue": this.issue,
+      "name": this.APDname,
+      "uuid": this.selectedGroup.uuid,
+      "filledCount": 0,
+      "filledByMe": false,
+      "userCount": 3,
+      "owner": true,
+      "sitType": this.sitType,
+      "experienceAreaIds": this.experienceAreaIds
+  }
+        this.API.postCreateRebiew(newRebiew).subscribe(res => {
+        this.reviewList.push(
+          {...newRebiew
+          });
         })
   }
 
@@ -129,21 +152,20 @@ export class GroupsMainComponent implements OnInit{
   }
 
   onSubmitAddRebiew(form: any) {
-    if(form.valid) {
+    if(form?.valid) {
       this.API.postCreateRebiew(
         {"bunchUuid": "dc6db24e-0db1-47b5-a69f-17b1009427d5",
           "name": "АПД-2",
           "deadline": "1675955811000",
           "moderator": "командир роти",
           "situationId": 2,
-          "unitType": this.DivType,
-          "userCategories": this.unitCat,
+          "unitType": this?.DivType,
+          "userCategories": this?.unitCat,
           "experienceAreaIds": [1, 3, 6],
           "issue": "Підготовка і ведення наступу ротної тактичної групи (здійснення маршу дивізіону в наступі; організація медичного забезпечення батальйону в обороні; дії про потраплянні у засідку; способи захисту озброєння від ударного БПЛА Ланцет тощо)"
 
         }
-      )
-
+      );
     }
   }
 }
