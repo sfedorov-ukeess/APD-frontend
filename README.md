@@ -22,9 +22,31 @@ docker run --rm -u $(id -u) \
 	trion/ng-cli:15.2.10 \
 	-c 'npm ci; ng build'
 ```
-Then push it to CloudFront:
+
+### Deploy to development CloudFront distribution
+Prerequisites:
+* [Generate personal Access Key][1] in AWS WebUI.
+* Store both access key & secret access key
+
+Create AWS CLI profile, using access key data:
 ```bash
+aws configure --profile apdinfo-dev
+```
+
+Then push it to CloudFront & invalidate the cache:
+```bash
+export AWS_PROFILE=apdinfo-dev
+
 aws s3 sync dist/apd s3://apdinfo-frontend --delete
+
+CLOUDFRONT_DISTRO_ID=$(aws cloudfront list-distributions \
+	--query "DistributionList.Items[?Aliases.Items[0]=='dev.apdinfo.org'].Id" \
+	--output text)
+
+aws cloudfront create-invalidation \
+  --distribution-id $CLOUDFRONT_DISTRO_ID \
+  --paths "/*" \
+  --no-cli-pager
 ```
 
 ## Running unit tests
@@ -38,3 +60,5 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+[1]: https://us-east-1.console.aws.amazon.com/iam/home?region=eu-central-1#/security_credentials/access-key-wizard
