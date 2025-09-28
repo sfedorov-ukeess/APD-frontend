@@ -1,4 +1,4 @@
-<div class="pageWrapper withPanel" xmlns="http://www.w3.org/1999/html">
+<div class="pageWrapper withPanel" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
   <div class="mainBlock">
     <h5 class="pageTitle">Групи</h5>
     <div class="contentWrapper">
@@ -36,30 +36,61 @@
 
       <ng-template ngSwitchCase="addNewGroup">
         <div class="sidebarContent">
-          <h5 class="title">{{selectedGroup.name}}</h5>
-          <button class="addBtn addReview" >Далі</button>
-          <h6 class="subtitle">Нове АПД</h6>
-          <div class="formControl addReviewData">
-            <button class="addBtn">Додати інших учасників</button>
-          </div>
-          <div class="underline"></div>
-          <div class="reviewCardList">
-            <div *ngFor="let item of selectedGroup.people">
-              <app-review-card [data]="item" (clickHandler)="selectPeople()"></app-review-card>
+          <form class="centeredForm narrow"
+                #form="ngForm"
+                (ngSubmit)="onSubmitAddGroupUsers(form)"
+          >
+            <h5 class="title">{{selectedGroup.name}}</h5>
+            <div class="formControl addReviewData">
             </div>
-          </div>
+            <div class="underline"></div>
+            <div class="formControl">
+              <label for="name">Ім'я нової групи *</label>
+              <input type="datetime-local"
+                     id="newGroupName"
+                     name="newGroupName"
+                     [(ngModel)]="newGroupName"
+                     #dateModel="ngModel"
+                     placeholder="Введіть"
+                     required
+              />
+              <div *ngIf=isValid(newGroupName) class="alert">
+                Поле необхідно заповнити.
+              </div>
+              <div class="formControl centered">
+                <button type="submit" [disabled]="form.form.invalid">Додати</button>
+              </div>
+            </div>
+          </form>
+
         </div>
+
+      </ng-template>
+      <ng-template ngSwitchCase="addNewGroupUders">
+        <div class="sidebarContent">
+          <form class="centeredForm narrow"
+                #form="ngForm"
+                (ngSubmit)="onAddUsers(form)">
+            <div class="formControl centered">
+              <div class="usercheckCard" ngFor="user in userList">
+                user.name
+              </div>
+            </div>
+            <button type="submit" [disabled]="form.form.invalid">Далі</button>
+          </form>
+        </div>
+
       </ng-template>
 
       <ng-template ngSwitchCase="addReview">
         <div class="sidebarContent">
         <form class="centeredForm narrow"
               #form="ngForm"
-              (ngSubmit)="onSubmitAddRebiew(form)"
+              (ngSubmit)="onAddUsers(form)"
         >
 
           <h5 class="title">{{selectedGroup.name}}</h5>
-<!--          <button class="addBtn addReview" (click)="addNewReview()">Далі</button>-->
+
           <h6 class="subtitle">Нове АПД</h6>
           <div class="formControl addReviewData">
             <button class="addBtn" (click)="addReviewData()">Додати інших учасників</button>

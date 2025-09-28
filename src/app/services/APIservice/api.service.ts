@@ -326,7 +326,7 @@ export class APIService {
     );
   }
 
-  postCreateRebiew(obj: any): Observable<any> {
+  postCreateReview(obj: any): Observable<object> {
     return this.useHttp(
       "POST",
       "review/create",
@@ -351,6 +351,17 @@ export class APIService {
       "experience-area/list",
       {},
       this.getAuthorizedOptions()
+    );
+  }
+  postCreaateNewGroup(name:string): Observable<any> {
+    return this.useHttp(
+      "POST",
+      "/group/create",
+      {
+        name,
+        "users":[]
+      },
+        this.getAuthorizedOptions()
     );
   }
 }

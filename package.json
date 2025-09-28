@@ -7,6 +7,8 @@
     "start:stage": "ng serve --configuration stage",
     "start:prod": "ng serve --configuration prod",
     "build": "ng build",
+    "build:stage": "ng build --configuration stage",
+    "build:prod": "ng build --configuration prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

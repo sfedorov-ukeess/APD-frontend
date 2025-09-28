@@ -119,6 +119,9 @@ body {
   box-sizing: border-box;
   width: auto;
   text-align: left;
+  .centered {
+    text-align: center;
+  }
 
   label {
     text-transform: capitalize;
