@@ -10,8 +10,8 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnDestroy {
   @ViewChild("pin") pinRef: any = null;
   @ViewChild('form') formRef: any = null;///TODO - remove creds
-  name= "679506795";
-  pass= "!1234Qqwer@";
+  name= "";
+  pass= "";
   errorMessage = "";
   valueSubscription: any = null;
   showPinModal: boolean = false;
