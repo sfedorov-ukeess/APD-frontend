@@ -23,6 +23,9 @@ import { SearchFieldComponent } from './components/shared/search-field/search-fi
 import { GroupsMainComponent } from './components/pages/groups/groups-main/groups-main.component';
 import { ReviewCardComponent } from './components/shared/review-card/review-card.component';
 import { ChartComponent } from './components/shared/chart/chart.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
+import { ApdPageComponent } from './components/pages/apd/apd/apd.component';
+import { ReportsComponent } from './components/pages/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { ChartComponent } from './components/shared/chart/chart.component';
     SearchFieldComponent,
     GroupsMainComponent,
     ReviewCardComponent,
-    ChartComponent
+    ChartComponent,
+    ProfileComponent,
+    ApdPageComponent,
+    ReportsComponent
   ],
     imports: [
         BrowserModule,

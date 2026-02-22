@@ -19,6 +19,9 @@ import {GlobalSignalService} from "./services/globalSignalService/global-signal-
 import {Router} from "@angular/router";
 import {PeopleComponent} from "./components/pages/people/people.component";
 import {GroupsMainComponent} from "./components/pages/groups/groups-main/groups-main.component";
+import { ApdPageComponent } from './components/pages/apd/apd/apd.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
+import { ReportsComponent } from './components/pages/reports/reports.component';
 
 @Injectable()
 export class AuthGuard
@@ -87,6 +90,24 @@ const routes: Routes = [
     path: "groups",
     pathMatch: "full",
     component: GroupsMainComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "apd",
+    pathMatch: "full",
+    component: ApdPageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "profile",
+    pathMatch: "full",
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "reports",
+    pathMatch: "full",
+    component: ReportsComponent,
     canActivate: [AuthGuard]
   }
 
