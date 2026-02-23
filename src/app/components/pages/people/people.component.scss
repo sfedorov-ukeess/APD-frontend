@@ -1,0 +1,43 @@
+.addBtn {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+}
+h6 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+app-search-field {
+  display: block;
+  width: 25%;
+}
+.sidePanel {
+  h6 {
+    padding-left: 1rem;
+  }
+
+  .personCard1 {
+    width: calc(100% - 3rem);
+    margin: 0 auto 2rem;
+    cursor: auto;
+  }
+
+  .groupCard {
+    width: calc(100% - 3rem);
+    margin: 0 auto 1rem;
+  }
+
+  .sidebarContent {
+
+    & > .title {
+      margin-bottom: 2rem;
+    }
+
+    .removeBtn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+}
+

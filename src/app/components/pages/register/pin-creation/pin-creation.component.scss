@@ -1,0 +1,56 @@
+.hinted-label {
+  position: relative;
+
+  span {
+    position: absolute;
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    right: 0;
+    top: 0;
+
+    &:before {
+      display: block;
+      content: "i";
+      text-align: center;
+      width: 1rem;
+      height: 1rem;
+      background-color: black;
+      color: white;
+      text-transform: none;
+      border-radius: .5rem;
+      line-height: 1rem;
+    }
+  }
+}
+input {
+  padding: .5rem .5rem .4rem;
+  text-align: center;
+  line-height: 0.7rem;
+  display: inline-block;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+p {
+  margin-bottom: 1rem;
+}
+.bottom-space {
+  margin-bottom: 3rem;
+}
+
+.narrow {
+  width: 50%;
+  min-width: 4rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &+button {
+    margin-top: 3rem;
+  }
+}

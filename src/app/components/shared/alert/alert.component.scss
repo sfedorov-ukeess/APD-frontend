@@ -1,0 +1,36 @@
+.shadow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}
+.alert-body {
+  width: 50%;
+  min-width: 20rem;
+  max-width: 30rem;
+  min-height: 3rem;
+  padding: 4rem 1rem 1rem 1rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 0.8rem;
+  }
+}
+.close-btn {
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}

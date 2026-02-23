@@ -1,0 +1,507 @@
+@import "./assets/color-schemas/black_and_white_theme.scss";
+
+* {
+  font-family: Helvetica, sans-serif;
+  caret-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+  position: absolute;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+
+  & > * {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.closeBtn {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  cursor: pointer;
+  z-index: 2;
+
+  &:after {
+    content: "+";
+    position: absolute;
+    font-size: 3rem;
+    left: -2px;
+    top: -15px;
+    transform: rotate(45deg);
+  }
+}
+
+.pageWrapper {
+  flex-grow: 1;
+
+  &.singlePage {
+    padding-top: 4rem;
+  }
+
+  .pageTitle {
+    margin: 4rem 0 1rem 1rem;
+    padding-left: 1.5rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  &.withFooter {
+    padding-bottom: 4rem;
+  }
+
+  &.withPanel {
+    position: relative;
+    width: 100%;
+
+    .mainBlock {
+      min-height: 1px;
+      width: 100%;
+    }
+
+    .sidePanel {
+      height: 100%;
+      width: 100%;
+      min-height: 100vh;
+      transition: width .5s;
+      position: absolute;
+      top: 0;
+      right: 0;
+      overflow: hidden;
+
+      .closeBtn {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+      }
+    }
+  }
+}
+
+.contentWrapper {
+  padding: 0 1rem;
+  position: relative;
+}
+
+.centeredForm {
+  min-width: 30rem;
+  position: relative;
+  text-align: center;
+  padding: 1.5rem;
+  min-height: fit-content;
+
+  &.narrow {
+    margin: auto;
+    width: 60%;
+  }
+}
+
+.formControl {
+  padding: .75rem 1.5rem;
+  box-sizing: border-box;
+  width: auto;
+  text-align: left;
+
+  label {
+    text-transform: capitalize;
+    display: block;
+    margin-bottom: .5rem;
+  }
+
+  & + .formControl {
+    margin-bottom: .5rem;
+  }
+}
+
+input, textarea, select {
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  padding: .875rem 1.25rem;
+  border-radius: .5rem;
+  border-width: 1px;
+  border-style: solid;
+  outline: none;
+  font-size: 1rem;
+  caret-color: initial;
+}
+textarea {
+  min-height: 5rem
+}
+
+button {
+  border-radius: .25rem;
+  font-size: .875rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: .75rem 1.25rem;
+}
+
+button.wide {
+  padding: .75rem 1.25rem;
+  min-width: 20rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.link {
+  text-decoration: none;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+footer {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3rem;
+  width: 100%;
+  text-align: center;
+  line-height: 3rem;
+  text-transform: uppercase;
+  border-top-width: 1px;
+  border-top-style: solid;
+  font-size: .875rem;
+
+  .link {
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+.backward-link {
+  margin: 2rem 0;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .875rem;
+
+  .link, .link:focus, .link:active, .link:hover {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding: 0;
+  margin: 0;
+}
+
+.alert {
+  font-size: .8rem;
+  margin: 0.2rem 0 0 0.2rem
+}
+
+[disabled] {
+  opacity: .25;
+  cursor: default;
+}
+
+.hidden {
+  display: none;
+}
+
+*:focus-visible {
+  outline-offset: .125rem;
+  outline-style: auto;
+}
+
+.centered {
+  text-align: center;
+}
+
+.toLeft {
+  float: left;
+}
+
+.toRight {
+  float: right;
+}
+
+.cardList {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+}
+
+.personCard1, .groupCard {
+  margin-bottom: .75rem;
+  cursor: pointer;
+  display: table;
+  width: 100%;
+  border-radius: .5rem;
+
+  & > div {
+    display: table-row;
+
+    & > * {
+      display: table-cell;
+      padding: 1rem;
+      line-height: 1rem;
+      font-weight: bold;
+    }
+
+    .phone {
+      font-weight: normal;
+    }
+  }
+
+  .name {
+    width: 40%;
+  }
+
+  .groupCounter, .personCounter {
+    width: 1rem;
+    padding-left: 2.5rem;
+  }
+
+  .groupCounter {
+    background: url(/assets/imgs/groups.png) no-repeat 10px 13px/1.3rem;
+  }
+
+  .personCounter {
+    background: url(/assets/imgs/peopleCounter.png) no-repeat 10px 13px/1.3rem;
+  }
+
+  .hint {
+    width: 1.5rem;
+    border-radius: .75rem;
+    color: white;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 1.5rem;
+      height: 1.5rem;
+      top: 12px;
+      left: 17px;
+      border-radius: 50%;
+    }
+
+    &:after {
+      content: "?";
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      font-weight: bold;
+    }
+  }
+}
+
+app-chart {
+  display: block;
+}
+
+.invite {
+  padding-top: 3rem;
+
+  .card-checkbox {
+    width: 2rem;
+    position: relative;
+
+    &.checked {
+      &:before, &:after {
+        content: "🗸";
+        position: absolute;
+        left: 22px;
+        top: 6px;
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 2.5rem;
+      }
+
+      &:before {
+        left: 27px;
+        color: gray;
+      }
+    }
+
+  }
+}
+
+.sidebarContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 1rem;
+  max-height:100%;
+  overflow: scroll;
+
+  .title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: .15rem;
+  }
+
+  .subtitle {
+    font-weight: normal;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .removeBtn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+.removeBtn {
+  height: 1rem;
+  line-height: 0.1rem;
+  padding: .7rem;
+}
+
+.underline {
+  height: 0;
+  width: 100%;
+  border-top: solid 1px gray;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 1024px) {
+  .mainContainer {
+    flex-direction: row;
+    align-items: normal;
+
+    app-menu {
+      width: auto;
+    }
+
+    app-alert, router-outlet {
+      width: 0;
+    }
+
+    .pageWrapper {
+      flex-grow: 1;
+
+      &.singlePage {
+        padding-top: 10rem;
+      }
+
+      &.narrow {
+        width: 60%;
+        max-width: 30rem;
+      }
+
+      .pageTitle {
+        margin: 4rem 0 1rem 1rem;
+        padding-left: 1.5rem;
+        font-size: 1.5rem;
+        text-transform: uppercase;
+      }
+
+      &.withFooter {
+        padding-bottom: 4rem;
+      }
+
+      &.withPanel {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .mainBlock {
+          min-height: 1px;
+          flex-grow: 1;
+        }
+
+        .sidePanel {
+          flex-shrink: 1;
+          min-height: 1px;
+          transition: width .5s;
+          width: 50rem;
+          max-width: 50%;
+          position: relative;
+          left: -1px;
+
+          &:before {
+            content: "";
+            display: block;
+            height: 100%;
+            width: 1px;
+            left: 0;
+            top: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(200, 200, 200, .7);
+
+  .spinnerInner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid #FFF;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+  }
+
+  .spinnerInner::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #FF3D00 transparent;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+
