@@ -1,0 +1,20 @@
+.data-verify {
+  input {
+    width: 4rem;
+    padding: .5rem .5rem .4rem;
+    text-align: center;
+    line-height: 2rem;
+    display: inline-block;
+    margin: 1rem .5rem 1rem;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+.formControl+button {
+  margin-top: 2rem;
+}

@@ -1,0 +1,7 @@
+<ul class="menu" *ngIf="!!activeURL">
+  <li
+    *ngFor="let item of list;"
+    (click)="clickHandler(Object.keys(item)[0])"
+    class="{{getClassName(item)}}"
+  ><span>{{ item[getClassName(item).replace(" active", '') ] }} </span></li>
+</ul>

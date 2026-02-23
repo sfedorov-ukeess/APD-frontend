@@ -1,0 +1,8 @@
+<div *ngIf="isOpen" class="modalContainer">
+  <div class="shadow" (click)="outClickHandler()"></div>
+  <div class="modal" #modalRef>
+    <div>some inner text</div>
+    <button>button</button>
+    <ng-content></ng-content>
+  </div>
+</div>

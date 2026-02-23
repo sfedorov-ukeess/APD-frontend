@@ -1,0 +1,53 @@
+<app-pin *ngIf="showPinModal" #pin [onSubmit]="onPinSubmit.bind(this)"></app-pin>
+<div class="pageWrapper withFooter singlePage">
+  <form class="centeredForm narrow"
+        #form="ngForm"
+        (ngSubmit)="onSubmit(form)"
+  >
+    <h1 class="sectionTitle">увійти</h1>
+    <div class="formControl">
+      <label for="login">Номер телефону або email*</label>
+      <input type="text"
+             id="login"
+             name="login"
+             [(ngModel)]="name"
+             #loginModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+             autofocus
+      />
+      <div *ngIf="loginModel.invalid && (loginModel.dirty || loginModel.touched)" class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="pass">Пароль*</label>
+      <input type="password"
+             id="pass"
+             name="pass"
+             [(ngModel)]="pass"
+             #passModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+      />
+      <div *ngIf="passModel.invalid && (passModel.dirty || passModel.touched)" class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl" *ngIf="errorMessage">
+      <div class="alert">{{errorMessage}}</div>
+    </div>
+    <div class="formControl">
+      <a class="link" routerLink="/forgot_pass">Забули пароль?</a>
+    </div>
+    <button type="submit" [disabled]="form.form.invalid">Увійти</button>
+  </form>
+</div>
+<footer>
+  <div>
+    <span>не має акаунту? </span>
+    <a class="link" routerLink="/register/phone">зареєструватись</a>
+  </div>
+</footer>

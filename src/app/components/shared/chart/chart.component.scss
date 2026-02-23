@@ -1,0 +1,26 @@
+.chart {
+  position: relative;
+
+  span {
+    font-size: .875rem;
+    font-weight: bold;
+  }
+
+  .line {
+    position: absolute;
+    right: 0;
+    left: 2.5rem;
+    top: 3px;
+    height: .5rem;
+    border-radius: .25rem;
+    overflow: hidden;
+
+    div {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: .5rem;
+      width: 100%;
+    }
+  }
+}

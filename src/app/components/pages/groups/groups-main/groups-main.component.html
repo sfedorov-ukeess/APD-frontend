@@ -1,0 +1,211 @@
+<div class="pageWrapper withPanel" xmlns="http://www.w3.org/1999/html">
+  <div class="mainBlock">
+    <h5 class="pageTitle">Групи</h5>
+    <div class="contentWrapper">
+      <app-search-field [value]="search" (onSearch)="searchGroupHandler($event)"></app-search-field>
+      <button class="addBtn addGroup" (click)="addNewGroup()">Додати групу</button>
+      <ul class="cardList">
+        <li class="groupCard" *ngFor="let item of groupListF" (click)="handleGroupClick(item.uuid)">
+          <div>
+            <div class="groupCardTitle">{{item.name}}</div>
+            <div class="personCounter">{{item.userCount}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="sidePanel" [style]="isPanelOpened ? '' : 'width: 0;'">
+    <div class="closeBtn" (click)="isPanelOpened=false"></div>
+    <div [ngSwitch]="sidebarMode">
+
+      <ng-template ngSwitchCase="reviewList">
+        <div class="sidebarContent">
+          <h5 class="title">{{selectedGroup.name}}</h5>
+          <button class="addBtn addReview" (click)="addNewReview()">Додати АПД</button>
+          <h6 class="subtitle">Учасників: {{selectedGroup.userCount}}</h6>
+          <div class="formControl">
+            <app-search-field (onSearch)="searchReviewHandler($event)"></app-search-field>
+          </div>
+          <div class="reviewCardList">
+            <div *ngFor="let item of reviewListF">
+              <app-review-card [data]="item" (clickHandler)="reviewCardClick($event)"></app-review-card>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template ngSwitchCase="addNewGroup">
+        <div class="sidebarContent">
+          <h5 class="title">Обрати учасників нової групи</h5>
+          <button class="addBtn addReview" (click)="postNewGroup()">Далі</button>
+          <h6 class="subtitle">Нове АПД</h6>
+          <div class="formControl addReviewData">
+            <input type="text"
+                   id="newGroupName"
+                   name="newGroupName"
+                   [(ngModel)]="newGroupNameModel"
+                   #nameModel="ngModel"
+                   placeholder="Введіть"
+                   autocomplete="off"
+                   (change)="isValid(null)"
+                   required
+                   autofocus
+            />
+            <div *ngIf="validationMsg" class="alert">
+              {{validationMsg}}
+            </div>
+          </div>
+          <div class="underline"></div>
+          <div class="reviewCardList">
+            <div *ngFor="let item of participants">
+              <app-review-card [data]="item" (clickHandler)="selectPeople(item.uuid)" [isChecked]="selectedParticipants[item.uuid]"></app-review-card>
+            </div>
+          </div>k
+        </div>
+      </ng-template>
+
+      <ng-template ngSwitchCase="addReview">
+        <div class="sidebarContent">
+        <form class="centeredForm narrow"
+              #form="ngForm"
+              (ngSubmit)="onSubmitAddReview(form)"
+        >
+
+          <h5 class="title">{{selectedGroup.name}}</h5>
+<!--          <button class="addBtn addReview" (click)="addNewReview()">Далі</button>-->
+          <h6 class="subtitle">Нове АПД</h6>
+          <div class="formControl addReviewData">
+            <button class="addBtn" (click)="addReviewData()">Додати інших учасників</button>
+          </div>
+          <div class="underline"></div>
+          <div class="formControl">
+            <label for="name">Ім'я АПД                                                          *</label>
+            <input type="text"
+                   id="name"
+                   name="name"
+                   [(ngModel)]="APDname"
+                   #nameModel="ngModel"
+                   placeholder="Введіть"
+                   autocomplete="off"
+                   required
+                   autofocus
+            />
+            <div *ngIf=isValid(nameModel) class="alert">
+              Поле необхідно заповнити.
+            </div>
+          </div>
+            <div class="formControl">
+              <label for="name">Дата здачі                                                          *</label>
+              <input type="datetime-local"
+                     id="date"
+                     name="date"
+                     [(ngModel)]="APDDate"
+                     #dateModel="ngModel"
+                     placeholder="Введіть"
+                     required
+              />
+              <div *ngIf=isValid(APDDate) class="alert">
+                Поле необхідно заповнити.
+              </div>
+            </div>
+          <div class="formControl">
+            <label for="name">Категорія учасників                                                         *</label>
+            <input type="text"
+                   id="unitCat"
+                   name="unitCat"
+                   [(ngModel)]="unitCat"
+                   #unitCatModel="ngModel"
+                   placeholder="Введіть"
+                   autocomplete="off"
+                   required
+            />
+            <div *ngIf=isValid(unitCatModel) class="alert">
+              Поле необхідно заповнити.
+            </div>
+          </div>
+              <div class="formControl">
+                <label for="name">Вид підрозділу *</label>
+                <input type="text"
+                       id="DivType"
+                       name="DivType"
+                       [(ngModel)]="DivType"
+                       #DivTypeModel="ngModel"
+                       placeholder="Введіть"
+                       autocomplete="off"
+                />
+                <div *ngIf=isValid(DivTypeModel) class="alert">
+                  Поле необхідно заповнити.
+                </div>
+              </div>
+                <div class="formControl">
+                  <label for="name">Вид ситуації                                                        *</label>
+                  <select
+                         id="sitType"
+                         name="sitType"
+                         [(ngModel)]="sitType"
+                         #sitTypeModel="ngModel"
+                         required
+                  >
+                  <option *ngFor="let type of sitTypesList;" value=type.id>{{type.name}}
+                  </option>
+                  </select>
+                </div>
+          <div class="formControl">
+            <label for="name">Тип АПД                                                        *</label>
+            <select
+              id="experienceAreaId"
+              name="experienceAreaId"
+              [(ngModel)]="experienceAreaId"
+              #experienceAreaIdModel="ngModel"
+              multiple="true"
+              required
+            >
+              <option *ngFor="let type of experienceAreaIds" value=type.id>{{type.name}}
+              </option>
+            </select>
+          </div>
+                  <div class="formControl">
+                    <label for="name">Модератор                                                        *</label>
+                    <input type="text"
+                           id="moder"
+                           name="moder"
+                           [(ngModel)]="moder"
+                           #moderModel="ngModel"
+                           placeholder="Введіть"
+                           autocomplete="off"
+                           required
+
+                    />
+                    <div *ngIf=isValid(moderModel) class="alert">
+                      Поле необхідно заповнити.
+                    </div>
+                    </div>
+          <div class="formControl">
+            <label for="name">Ппроблемне питання                                                        *</label>
+            <textarea
+                   id="issue"
+                   name="issue"
+                   [(ngModel)]="issue"
+                   #issueModel="ngModel"
+                   placeholder="Введіть"
+                   autocomplete="off"
+                   required
+            ></textarea>
+            <div *ngIf=isValid(issueModel) class="alert">
+              Поле необхідно заповнити.
+            </div>
+          </div>
+          <!--<div class="reviewCardList">
+            <div *ngFor="let item of selectedGroup.people">
+              <app-review-card [data]="item" (clickHandler)="selectPeople()"></app-review-card>
+            </div>
+          </div>-->
+          <button type="submit" [disabled]="form.form.invalid" (click)="addReviewData()">Додати</button>
+
+        </form>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

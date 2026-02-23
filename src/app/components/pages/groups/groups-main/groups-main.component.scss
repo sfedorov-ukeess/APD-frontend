@@ -1,0 +1,34 @@
+.addBtn {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+}
+
+.mainBlock app-search-field {
+  display: block;
+  width: 25%;
+}
+
+.subtitle {
+  margin-bottom: 1.5rem;
+}
+
+.reviewCardList {
+  padding: 0 1.5rem;
+}
+
+app-review-card {
+  cursor: pointer;
+}
+
+.addReview {
+  top: 1rem;
+}
+
+.addReviewData {
+  text-align: center;
+  button {
+    position: relative;
+    margin-left: 2rem;
+  }
+}

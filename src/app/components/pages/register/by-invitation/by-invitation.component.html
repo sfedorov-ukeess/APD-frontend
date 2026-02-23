@@ -1,0 +1,113 @@
+<div class="pageWrapper withFooter singlePage">
+  <form class="centeredForm"
+        #form="ngForm"
+        (ngSubmit)="onSubmit(form)"
+  >
+    <h1 class="sectionTitle">зареєструватись</h1>
+    <div class="formControl">
+      <label for="inviteCode">Код запрошення*</label>
+      <input type="text"
+             id="inviteCode"
+             name="inviteCode"
+             [(ngModel)]="inviteCode"
+             #inviteCodeModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+             autofocus
+      />
+      <div *ngIf=isValid(inviteCodeModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="name">Ім'я*</label>
+      <input type="text"
+             id="name"
+             name="name"
+             [(ngModel)]="name"
+             #nameModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+      />
+      <div *ngIf=isValid(nameModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+
+    </div>
+    <div class="formControl">
+      <label for="surname">Прізвище*</label>
+      <input type="text"
+             id="surname"
+             name="surname"
+             [(ngModel)]="surname"
+             #surnameModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+      />
+      <div *ngIf=isValid(surnameModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="email">Електронна адреса*</label>
+      <input type="email"
+             id="email"
+             name="email"
+             [(ngModel)]="email"
+             #emailModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+      />
+      <div *ngIf=isValid(emailModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="password">Пароль*</label>
+      <input type="password"
+             id="password"
+             name="password"
+             [(ngModel)]="password"
+             #passModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             (focus)="onFocus()"
+             required
+      />
+      <div *ngIf=isValid(passModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="passwordConfirm">Підтвердження паролю*</label>
+      <input type="password"
+             id="passwordConfirm"
+             name="passwordConfirm"
+             [(ngModel)]="passwordConfirm"
+             #passwordConfirmModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             (focus)="onFocus()"
+             required
+      />
+      <div *ngIf=isValid(passwordConfirmModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+
+    <div class="formControl" *ngIf="errorMessage">
+      <div class="alert">{{errorMessage}}</div>
+    </div>
+    <button type="submit" [disabled]="form.form.invalid">Зареєструватись</button>
+  </form>
+</div>
+<footer class="lineSeparated">
+  <div>
+    <span>Вже зареєстровані? </span>
+    <a class="link" routerLink="/login">Увійти</a>
+  </div>
+</footer>
