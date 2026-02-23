@@ -1,0 +1,52 @@
+.reviewCard {
+  position: relative;
+  margin-bottom: .75rem;
+  border-radius: .5rem;
+  padding: 1rem;
+  font-size: .875rem;
+
+  .title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: .5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .firstLine {
+    margin-bottom: 1rem;
+    overflow: hidden;
+
+    div:first-child {
+      white-space: nowrap;
+      max-width: 75%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .secondLine {
+    overflow: hidden;
+
+    .users {
+      font-weight: bold;
+      padding-left: 1.3rem;
+      height: 1rem;
+      background: url(/assets/imgs/peopleCounter.png) no-repeat 1px 0px / 1rem;
+    }
+
+    .chart {
+      width: 60%;
+    }
+  }
+  &.checked:after {
+    position: absolute;
+    left: 30%;
+    content: "✔";
+    top: 40%;
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+}
