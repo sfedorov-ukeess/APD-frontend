@@ -1,0 +1,74 @@
+<div class="pageWrapper withFooter singlePage">
+  <form class="centeredForm"
+        #form="ngForm"
+        (ngSubmit)="onSubmit(form)"
+  >
+    <h1 class="sectionTitle">зареєструватись</h1>
+    <p class="centered data-verify">{{prompt}}</p>
+    <div class="formControl data-verify centered">
+        <input type="number"
+               id="c1"
+               name="c1"
+               [(ngModel)]="c1"
+               #cm1="ngModel"
+               placeholder="*"
+               autocomplete="off"
+               maxlength="1"
+               required
+               autofocus
+               (input)="onInput($event)"
+        />
+        <input type="number"
+               id="c2"
+               name="c2"
+               [(ngModel)]="c2"
+               #cm2="ngModel"
+               placeholder="*"
+               autocomplete="off"
+               maxlength="1"
+               required
+               (input)="onInput($event)"
+        />
+        <input type="number"
+               id="c3"
+               name="c3"
+               [(ngModel)]="c3"
+               #cm3="ngModel"
+               placeholder="*"
+               autocomplete="off"
+               maxlength="1"
+               required
+               (input)="onInput($event)"
+        />
+        <input type="number"
+               id="c4"
+               name="c4"
+               [(ngModel)]="c4"
+               #cm4="ngModel"
+               placeholder="*"
+               autocomplete="off"
+               maxlength="1"
+               required
+               (input)="onInput($event)"
+        />
+      <div *ngIf="
+      (cm1.invalid && (cm1.dirty || cm1.touched)) ||
+      (cm2.invalid && (cm2.dirty || cm2.touched)) ||
+      (cm3.invalid && (cm3.dirty || cm3.touched)) ||
+      (cm4.invalid && (cm4.dirty || cm4.touched))"
+           class="alert centered"
+      >
+        Всі поля необхідно заповнити.
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.form.invalid">підтвердити</button>
+    <div class="backward-link">
+      Не отримали код? <a class="link" (click)="this.requestCode()">надіслати ще раз</a>
+    </div>
+  </form>
+</div>
+<footer>
+  <div>
+    <a class="link" routerLink="/register/phone">повернутись до реєстрації</a>
+  </div>
+</footer>
