@@ -1,0 +1,68 @@
+<div class="backdrop">
+    <form
+          class="formControl"
+          #form="ngForm"
+          (keyup)="onKeyup($event, form)"
+    >
+      <h5>Введіть PIN код</h5>
+      <div>
+        <input
+          #input1="ngModel"
+          type="text"
+          maxlength="1"
+          minlength="1"
+          id="p1"
+          name="p1"
+          [(ngModel)]="p1"
+          placeholder="X"
+          autocomplete="off"
+          required
+          />
+        <input
+          #input2="ngModel"
+          type="text"
+          maxlength="1"
+          minlength="1"
+          id="p2"
+          name="p2"
+          [(ngModel)]="p2"
+          placeholder="X"
+          autocomplete="off"
+          required
+        />
+    <input
+          #input3="ngModel"
+          type="text"
+          maxlength="1"
+          minlength="1"
+          id="p3"
+          name="p3"
+          [(ngModel)]="p3"
+          placeholder="X"
+          autocomplete="off"
+          required
+        />
+        <input
+          #input4="ngModel"
+          type="text"
+          maxlength="1"
+          minlength="1"
+          id="p4"
+          name="p4"
+          [(ngModel)]="p4"
+          placeholder="X"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="alert" *ngIf="
+      form.invalid &&
+      (input1.touched || input1.dirty) &&
+      (input2.touched || input2.dirty) &&
+      (input3.touched || input3.dirty) &&
+      (input4.touched || input4.dirty)
+">
+        Поля необхідно заповнити.
+      </div>
+    </form>
+</div>

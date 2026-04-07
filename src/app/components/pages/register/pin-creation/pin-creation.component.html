@@ -1,0 +1,65 @@
+<div class="pageWrapper withFooter singlePage">
+  <form class="centeredForm"
+        #form="ngForm"
+        (ngSubmit)="onSubmit(form)"
+  >
+    <h1 class="sectionTitle">зареєструватись</h1>
+    <div class="formControl bottom-space">
+      <p class="centered data-verify">Задля безпеки ми просимо Вас створити два PIN коди.</p>
+      <p class="centered data-verify">Перший, <b>код доступу</b>, потрібно буде вводити для доступу до застосунку.</p>
+      <p class="centered data-verify">Другий, <b>код примусу</b>, потрібно ввести якщо Вас примушують.</p>
+    </div>
+    <div class="narrow">
+      <div class="formControl narrow">
+        <label for="pin1" class="hinted-label">PIN 1. Код Доступу.
+          <span title="Код вводиться при аутентифікації для входу в застосунок."></span>
+        </label>
+        <input type="text"
+               id="pin1"
+               name="pin1"
+               [(ngModel)]="pin1"
+               #pin1Model="ngModel"
+               placeholder="Введіть 4 цифри"
+               autocomplete="off"
+               minlength="4"
+               (keyup)="onInput($event)"
+               required
+               autofocus
+        />
+        <div *ngIf="pin1Model.invalid && (pin1Model.dirty || pin1Model.touched)" class="alert">
+          Поле необхідно заповнити.
+        </div>
+      </div>
+      <div class="formControl narrow">
+        <label for="pin2" class="hinted-label">PIN 2. Код Примусу.
+          <span title="Код вводиться при аутентифікації для блокування облікового запису у випадку примусу."></span>
+        </label>
+        <input type="text"
+               id="pin2"
+               name="pin2"
+               [(ngModel)]="pin2"
+               #pin2Model="ngModel"
+               placeholder="Введіть 4 цифри"
+               autocomplete="off"
+               minlength="4"
+               (input)="onInput($event)"
+               required
+               autofocus
+        />
+        <div *ngIf="pin2Model.invalid && (pin2Model.dirty || pin2Model.touched)" class="alert">
+          Поле необхідно заповнити.
+        </div>
+      </div>
+    </div>
+    <div class="formControl" *ngIf="errorMessage">
+      <div class="alert">{{errorMessage}}</div>
+    </div>
+    <button type="submit" [disabled]="form.form.invalid">підтвердити</button>
+  </form>
+</div>
+<footer>
+  <div>
+    <span>Вже зареєстровані? </span>
+    <a class="link" routerLink="/login">Увійти</a>
+  </div>
+</footer>

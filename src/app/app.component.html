@@ -1,0 +1,6 @@
+<div class="mainContainer">
+  <app-menu></app-menu>
+  <router-outlet></router-outlet>
+  <app-alert [type]='"error"'>Some text of warning</app-alert>
+  <div class="spinner" *ngIf="spinner"><div class="spinnerInner"></div></div>
+</div>

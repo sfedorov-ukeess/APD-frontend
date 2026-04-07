@@ -1,0 +1,146 @@
+@import "./color-schemas";
+
+body {
+  color: $dark_0;
+}
+.mainContainer {
+  background-color: $white;
+}
+button {
+  background-color: $dark_1;
+  color: $white;
+}
+.link {
+  &, &:visited {
+    color: $link_base_color;
+  }
+  &.active, &:focus {
+    color: $link_base_color_active;
+  }
+}
+input, textarea {
+  border-color: $dark_4;
+
+  &:focus {
+    border-color: $dark_1;
+  }
+  &:disabled {
+    border-color: $dark_4;
+    background-color: $dark_6;
+  }
+}
+form {
+  background-color: $white;
+}
+.alert {
+  color: $error;
+}
+.shadow {
+  background-color: $shadow_color;
+}
+.alert-body {
+  background-color: $white;
+
+  h5.notification {
+    color: $dark_1
+  }
+  h5.success {
+    color: $success
+  }
+  h5.error {
+    color: $error
+  }
+}
+
+.close-btn {
+  color: $dark_2;
+  background-color: $dark_6;
+  border: none;
+  &:hover, &:active, &:focus {
+    color: $dark_1;
+  }
+}
+footer {
+  background-color: $dark_6;
+  border-top: $dark_4;
+}
+*:focus-visible {
+  outline: $outline_color;
+}
+
+.menu {
+  border: solid 1px $dark_5;
+  background-color: $dark_1;
+
+  li {
+    border: solid 1px $dark_4;
+    color: $dark_4;
+    cursor: pointer;
+
+    &.active {
+      border: solid 1px $dark_0;
+      color: $white;
+      cursor: auto;
+
+      &:after {
+        background-color: $white;
+      }
+    }
+  }
+}
+
+.sidePanel {
+  background-color: $dark_8;
+  &:before {
+    background-color: $dark_3;
+  }
+}
+
+.closeBtn {
+  color: $black;
+  border-color: $black;
+}
+
+.removeBtn {
+  background-color: $dark_red;
+  border: none;
+  padding: .7rem;
+}
+
+.personCard1, .groupCard, .reviewCard {
+  border: solid 1px $dark_7;
+  box-shadow: $dark_5 1px 1px 3px;
+  background-color: $white;
+}
+
+.hint {
+  color: white;
+  &:before {
+    background-color: black;
+  }
+}
+
+.chart {
+  .line {
+    background-color: $dark_5;
+    div {
+      background-color: black;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu {
+    li {
+      &:last-child {
+        border-bottom: solid 1px $dark_4 !important;
+      }
+
+      &:not(.active) {
+        &:hover {
+          background-color: $dark_2 !important;
+        }
+      }
+    }
+  }
+}

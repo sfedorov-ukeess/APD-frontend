@@ -1,0 +1,121 @@
+<div class="pageWrapper withFooter singlePage">
+  <form class="centeredForm narrow"
+        #form="ngForm"
+        (ngSubmit)="onSubmit(form)"
+  >
+    <h1 class="sectionTitle">зареєструватись</h1>
+    <div class="formControl">
+      <label for="name">Ім'я*</label>
+      <input type="text"
+             id="name"
+             name="name"
+             [(ngModel)]="name"
+             #nameModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+             autofocus
+      />
+      <div *ngIf=isValid(nameModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+
+    </div>
+    <div class="formControl">
+      <label for="surname">Прізвище*</label>
+      <input type="text"
+             id="surname"
+             name="surname"
+             [(ngModel)]="surname"
+             #surnameModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+      />
+      <div *ngIf=isValid(surnameModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="email">Електронна адреса*</label>
+      <input type="email"
+             id="email"
+             name="email"
+             [(ngModel)]="email"
+             #emailModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             required
+             email
+      />
+      <div *ngIf=isValid(emailModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="phone">Номер телефону*</label>
+      <input type="text"
+             id="phone"
+             name="phone"
+             [(ngModel)]="phone"
+             #phoneModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             maxlength="13"
+             mixlength="13"
+             required
+             (input)="this.onPhoneInput($event)"
+      />
+      <div *ngIf=isValid(phoneModel) class="alert">
+        Поле необхідно заповнити.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="password">Пароль*</label>
+      <input type="password"
+             id="password"
+             name="password"
+             [(ngModel)]="password"
+             #passwordModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             minlength="8"
+             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=]).{8,}"
+             (focus)="onFocus()"
+             required
+      />
+      <div *ngIf=isValid(passwordModel) class="alert">
+        Поле необхідно заповнити. Мінімальна довжина 8 символів. Пароль має містити великі і малі літери, цифри і спецсимволи.
+      </div>
+    </div>
+    <div class="formControl">
+      <label for="passwordConfirm">Підтвердження паролю*</label>
+      <input type="password"
+             id="passwordConfirm"
+             name="passwordConfirm"
+             [(ngModel)]="passwordConfirm"
+             #passwordConfirmModel="ngModel"
+             placeholder="Введіть"
+             autocomplete="off"
+             minlength="8"
+             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=]).{8,}"
+             (focus)="onFocus()"
+             required
+      />
+      <div *ngIf=isValid(passwordConfirmModel) class="alert">
+        Поле необхідно заповнити. Паролі мають співпадати.
+      </div>
+    </div>
+
+    <div class="formControl" *ngIf="errorMessage">
+      <div class="alert">{{errorMessage}}</div>
+    </div>
+    <button type="submit" [disabled]="form.form.invalid">Зареєструватись</button>
+  </form>
+</div>
+<footer class="lineSeparated">
+  <div>
+    <span>Вже зареєстровані? </span>
+    <a class="link" routerLink="/login">Увійти</a>
+  </div>
+</footer>

@@ -1,0 +1,118 @@
+<div class="pageWrapper withPanel">
+  <div class="mainBlock">
+    <h5 class="pageTitle">Люди</h5>
+    <div class="contentWrapper">
+      <app-search-field [value]="search" (onSearch)="searchHandler($event)"></app-search-field>
+      <button class="addBtn" (click)="addNew()">Додати</button>
+      <div *ngIf="invitedPeopleF.length">
+        <h6>Запрошені Люди</h6>
+        <ul class="cardList">
+          <li class="personCard1" *ngFor="let item of invitedPeopleF">
+            <div>
+              <div class="name">{{item.name}}</div>
+              <div class="phone">{{item.phone}}</div>
+              <div class="hint" title="Ця людина запрошена, але поки що не може переглядати інформацію про АПД."></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="underline" *ngIf="invitedPeopleF.length && peopleF.length"></div>
+      <div *ngIf="peopleF.length">
+        <h6>Люди</h6>
+        <ul class="cardList">
+          <li class="personCard1" *ngFor="let item of peopleF" (click)="clickPeople(item.uuid)">
+            <div>
+              <div class="name">{{item.name + " " + item.surname}}</div>
+              <div class="phone">{{item.phone}}</div>
+              <div class="groupCounter">{{item.groupCounter}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sidePanel" [style]="isPanelOpened ? '' : 'width: 0;'">
+    <div class="closeBtn" (click)="isPanelOpened=false"></div>
+    <div *ngIf="phase === 'person'" class="sidebarContent">
+      <div class="title">{{person.name + " " + person.surname}}</div>
+      <button class="removeBtn" (click)="removePerson()">Видалити</button>
+      <div class="personCard1">
+        <div>
+          <div class="name">{{person.name + " " + person.surname}}</div>
+          <div class="phone">{{person.phone}}</div>
+        </div>
+      </div>
+      <div *ngIf="myGroupsForPerson.length">
+        <h6>Мої Групи <span title="Групи, створені користувачем" class="info"></span></h6>
+        <ul class="cardList">
+          <li class="groupCard"
+              *ngFor="let item of myGroupsForPerson"
+          >
+            <div>
+              <div class="groupCardTitle">{{item.name}}</div>
+              <div class="personCounter">{{item.userCount}}</div>
+            </div>
+          </li>
+        </ul>
+        <div class="underline"></div>
+      </div>
+      <div *ngIf="commonGroupsForPerson.length">
+        <h6>Спільні Групи</h6>
+        <ul class="cardList">
+          <li class="groupCard"
+              *ngFor="let item of commonGroupsForPerson"
+          >
+            <div>
+              <div class="groupCardTitle">{{item.name}}</div>
+              <div class="personCounter">{{item.userCount}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngIf="phase === 'add'" class="sidebarContent">
+      <div class="invite">
+        <h6>Запросити</h6>
+        <div class="formControl">
+          <label for="invitePhone">Номер Телефону*</label>
+          <input
+            name="invitePhone"
+            id="invitePhone"
+            [(ngModel)]="invitePhone"
+            placeholder="Введіть"
+            autocomplete="off"
+            required
+            autofocus
+          >
+        </div>
+        <div class="formControl">
+          <label for="inviteName">Номер Телефону</label>
+          <input
+            name="inviteName"
+            id="inviteName"
+            [(ngModel)]="inviteName"
+            placeholder="Введіть"
+            autocomplete="off"
+          >
+        </div>
+        <div class="formControl">
+          <button (click)="invitePerson()">Додати</button>
+        </div>
+        <h6>Додати В Групу</h6>
+        <ul class="cardList">
+          <li class="groupCard"
+              *ngFor="let item of myGroupsForPerson"
+              (click)="toggleSelectedItem(item.uuid)"
+          >
+            <div>
+              <div class="groupCardTitle">{{item.name}}</div>
+              <div [class]="selectedGroups[item.uuid] ? 'card-checkbox checked' : 'card-checkbox'"></div>
+              <div class="personCounter">{{item.userCount}}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
